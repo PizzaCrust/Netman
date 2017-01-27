@@ -8,7 +8,12 @@ targetCompatiblity = 1.8
 
 repositories {
     mavenCentral()
+    maven {
+        name 'spigot'
+        url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+    }
 }
 
 dependencies {
+    compile 'org.bukkit:bukkit:1.11.2-R0.1-SNAPSHOT'
 }
