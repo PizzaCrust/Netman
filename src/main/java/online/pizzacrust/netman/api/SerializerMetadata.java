@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Serializer {
+public @interface SerializerMetadata {
 
     /**
      * Retrieves if it will serialize the specified element.
@@ -25,6 +25,6 @@ public @interface Serializer {
      * Defines the serializer class of the field.
      * @return
      */
-    Class<? extends ByteSerializer> serializer();
+    Class<? extends ByteSerializer> serializer() default ClassSerializer.class;
 
 }
