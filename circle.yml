@@ -1,6 +1,6 @@
 general:
   artifacts:
-    - "build/libs/"
+    - "~/Netman/build/libs/"
 dependencies:
   pre:
     - chmod +x gradlew
