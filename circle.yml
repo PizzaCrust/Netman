@@ -1,6 +1,6 @@
+general:
+  artifacts:
+    - "build/libs/"
 dependencies:
   pre:
     - chmod +x gradlew
-general:
-  artifacts:
-    - "build/libs/*.jar"
