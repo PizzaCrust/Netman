@@ -6,8 +6,11 @@ import org.bukkit.plugin.Plugin;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.Optional;
 
 import online.pizzacrust.netman.api.ClassSerializer;
+import online.pizzacrust.netman.api.PacketFormat;
+import online.pizzacrust.netman.api.PacketFormatProvider;
 import online.pizzacrust.netman.api.PacketSender;
 import online.pizzacrust.netman.api.User;
 
@@ -22,7 +25,10 @@ public class BukkitPacketSender implements PacketSender {
     public static Plugin SOURCE;
 
     @Override
-    public void sendPacket(User user, Object object) {
+    public void sendPacket(User user, Object object, PacketFormat.FormatInfo formatInfo, Class<?
+            extends
+            PacketFormat>
+            packetFormatClass) {
         if (user instanceof BukkitUser) {
             Player player = ((BukkitUser) user).getPlayer();
             ClassSerializer classSerializer = new ClassSerializer();
@@ -34,13 +40,19 @@ public class BukkitPacketSender implements PacketSender {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            byte[] bytes = byteArrayOutputStream.toByteArray();
-            try {
-                byteArrayOutputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            player.sendPluginMessage(SOURCE, "netman", bytes);
+            Optional<PacketFormat> formatOpt = PacketFormatProvider.getPacketFormat
+                    (packetFormatClass);
+            formatOpt.ifPresent((format) -> {
+                ByteArrayOutputStream newPacket = format.formatPacket(formatInfo,
+                        byteArrayOutputStream);
+                player.sendPluginMessage(SOURCE, "netman", newPacket.toByteArray());
+                try {
+                    newPacket.close();
+                    byteArrayOutputStream.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
         }
     }
 }

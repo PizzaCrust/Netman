@@ -13,6 +13,7 @@ public interface PacketSender {
      * @param user
      * @param object
      */
-    void sendPacket(User user, Object object);
+    void sendPacket(User user, Object object, PacketFormat.FormatInfo formatInfo, Class<? extends
+            PacketFormat> format);
 
 }

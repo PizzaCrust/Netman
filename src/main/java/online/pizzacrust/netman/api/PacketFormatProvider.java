@@ -2,6 +2,7 @@ package online.pizzacrust.netman.api;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import online.pizzacrust.netman.api.fml.FMLSimplePacketFormat;
 
@@ -24,6 +25,16 @@ public class PacketFormatProvider {
 
     public static void registerPacketFormat(PacketFormat packetFormat) {
         REGISTERED_PACKET_FORMATS.add(packetFormat);
+    }
+
+    public static Optional<PacketFormat> getPacketFormat(Class<? extends PacketFormat>
+                                                                 packetFormatClass) {
+        for (PacketFormat packetFormat : REGISTERED_PACKET_FORMATS) {
+            if (packetFormat.getClass() == packetFormatClass) {
+                return Optional.of(packetFormat);
+            }
+        }
+        return Optional.empty();
     }
 
     public static List<PacketFormat> getRegisteredPacketFormats() {
