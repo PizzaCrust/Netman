@@ -6,8 +6,12 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import online.pizzacrust.netman.api.PacketFormat;
+import online.pizzacrust.netman.api.PacketSender;
+import online.pizzacrust.netman.api.PacketSenderProvider;
+import online.pizzacrust.netman.api.User;
 
 /**
  * Represents a implementation of FML's packet format for the SimpleNetworkingImplementation.
@@ -22,6 +26,13 @@ public class FMLSimplePacketFormat implements PacketFormat {
     public static void registerFMLPacket(int discriminator, Class<?> clazz) {
         DISCRIMINATOR_TO_CLASS.put(discriminator, clazz);
     }
+
+    public static void sendPacket(User user, FMLFormatInfo fmlFormatInfo, Object object, Class<?
+            extends PacketSender> packetSender) {
+        Optional<PacketSender> senderOpt = PacketSenderProvider.getPacketSender(packetSender);
+        senderOpt.ifPresent((sender) -> sender.sendPacket(user, object, fmlFormatInfo, FMLSimplePacketFormat.class));
+    }
+
 
     @Override
     public Class<?> identifyPacketClass(DataInputStream dataInputStream) {
