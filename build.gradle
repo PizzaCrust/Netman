@@ -16,4 +16,5 @@ repositories {
 
 dependencies {
     compile 'org.bukkit:bukkit:1.11.2-R0.1-SNAPSHOT'
+    compile group: 'eu.hexagonmc', name: 'spigot-annotations', version: '1.0'
 }
