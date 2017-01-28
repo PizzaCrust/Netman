@@ -33,7 +33,7 @@ public class PacketHandler {
         packetClass.ifPresent((clazz) -> {
             Object packet = classSerializer.deserialize(dataInputStream, clazz);
             if (packet != null) {
-                LISTENER_LIST.forEach((listener) -> listener.onRetrieve(packet));
+                LISTENER_LIST.forEach((listener) -> listener.onRetrieve(user, packet));
             }
         });
     }
