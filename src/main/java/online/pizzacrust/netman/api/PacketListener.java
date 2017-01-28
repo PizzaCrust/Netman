@@ -8,6 +8,6 @@ package online.pizzacrust.netman.api;
  */
 public interface PacketListener {
 
-    void onRetrieve(Object packet);
+    void onRetrieve(User user, Object packet);
 
 }

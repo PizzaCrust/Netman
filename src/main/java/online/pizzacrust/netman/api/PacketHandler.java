@@ -20,7 +20,7 @@ public class PacketHandler {
         LISTENER_LIST.add(listener);
     }
 
-    public static void handleRetrievePacket(ByteArrayInputStream byteArrayInputStream) {
+    public static void handleRetrievePacket(User user, ByteArrayInputStream byteArrayInputStream) {
         Optional<Class<?>> packetClass = Optional.empty();
         DataInputStream dataInputStream = new DataInputStream(byteArrayInputStream);
         for (PacketFormat packetFormat : PacketFormatProvider.getRegisteredPacketFormats()) {
