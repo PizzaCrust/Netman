@@ -1,6 +1,9 @@
 general:
   artifacts:
     - "~/Netman/build/libs/"
+test:
+  override:
+    - ./gradlew clean build
 dependencies:
   pre:
     - chmod +x gradlew
